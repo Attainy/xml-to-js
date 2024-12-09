@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { xml2json } from 'xml-js';
+import Jobkorea from './Jobkorea';
 
 function App() {
   const [items, setItems] = useState<any>(null);
@@ -14,6 +15,7 @@ function App() {
   const fetchXmlData = async () => {
     try {
       const response = await fetch('/test.xml');
+      // const response = await fetch('/jobkorea.xml');
       const textData = await response.text();
 
       // XML 클렌징
@@ -23,6 +25,8 @@ function App() {
       const jsonData = JSON.parse(
         xml2json(sanitizedXml, { compact: true, spaces: 2 })
       );
+
+      console.log(jsonData)
 
       // 데이터 추출
       const extractedItems = jsonData['job-search']?.jobs?.job;
@@ -35,11 +39,13 @@ function App() {
   useEffect(() => {
     fetchXmlData();
   }, []);
+  
 
   return (
     <div>
-      <h1>Job Listings</h1>
-      {items ? <pre>{JSON.stringify(items, null, 2)}</pre> : <p>Loading...</p>}
+      {/* <h1>Job Listings</h1> */}
+      {/* {items ? <pre>{JSON.stringify(items, null, 2)}</pre> : <p>Loading...</p>} */}
+      <Jobkorea/>
     </div>
   );
 }
