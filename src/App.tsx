@@ -7,7 +7,8 @@ function App() {
   const sanitizeXml = (xml: string) => {
     return xml
       .trim() // 공백 제거
-      .replace(/&(?!(amp;|lt;|gt;|quot;|apos;))/g, '&amp;'); // 잘못된 '&' 처리
+      .replace(/&(?!(amp;|lt;|gt;|quot;|apos;))/g, '&amp;') // 잘못된 '&' 처리
+      .replace(/\s+/g, ' '); // 여러 공백과 줄바꿈을 단일 공백으로 변환
   };
 
   const fetchXmlData = async () => {
